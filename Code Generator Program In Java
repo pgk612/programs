@@ -46,6 +46,7 @@ register[k]=temporary[0];
 }
 if(i==ip.length-1)
 {
+//hey
 int h=search(temporary[0]);
 op=op+"MOV  "+temporary[0]+",R"+h+"\n";
 }
