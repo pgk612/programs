@@ -171,7 +171,7 @@ public static boolean searchPot(String[] s) {
 
 int i = 0;
 int l = 0;
-
+int 
 if(s.length == 3) {
 
 i = 1;
@@ -183,6 +183,7 @@ s = tokenize(s);
 if(s[i].equalsIgnoreCase("DS") || s[i].equalsIgnoreCase("DC")) {
 
 // DS or DC statement
+System.out.println("Encpountered DS");
 String x = s[i+1];
 int index = x.indexOf("F");
 if(i == 1) {
@@ -194,6 +195,8 @@ l = Integer.parseInt(x.substring(0, x.length()-1));
 l *= 4;
 }
 else {
+System.out.println("Starting with F");
+
 // Starts with F
 for(int j = i + 1; j < s.length; j++) {
 l += 4;
@@ -225,6 +228,7 @@ return true;
 else if(s[i].equalsIgnoreCase("LTORG")) {
 
 // LTORG statement
+System.out.println("LTORG Encountered");
 ltorg(false);
 return true;
 
@@ -252,10 +256,13 @@ i = 1;
 
 }
 s = tokenize(s);
-
+System.out.println("Tokenized is "+s);
 for(int j = i + 1; j < s.length; j++) {
 
 if(s[j].startsWith("=")) {
+
+
+
 
 littable.add(new LitTuple(s[j].substring(1, s[j].length()), -1, 4, "R"));
 
