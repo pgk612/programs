@@ -9,7 +9,7 @@ String mnt[][]=new String[5][3]; //assuming 5 macros in 1 program
 String ala[][]=new String[10][2]; //assuming 2 arguments in each macro
 String mdt[][]=new String[20][1];
 int mntc=0,mdtc=0,alac=0,i,j,index=0,index1,alap=0,mdtp,flag=0;
-
+in temp=0;
 BufferedReader  f = null;
 try {
 f = new BufferedReader(new FileReader("input file pass 1"));
@@ -26,6 +26,7 @@ String s,s1,pr="",substring,temp;
 
 while((s=f.readLine())!=null)
 {
+temp++;
 if(s.equals("MACRO"))
 {
 pr=s;
@@ -38,6 +39,7 @@ String str[]=new String[st.countTokens()];
 
 for(i=0;i<str.length;i++) {
 str[i]=st.nextToken();
+temp++;
 }
 mnt[mntc][0]=(mntc+1)+""; //mnt formation
 mnt[mntc][1]=str[0];
@@ -48,6 +50,7 @@ String string[]=new String[st.countTokens()];
 
 for(i=0;i<string.length;i++)
 {
+temp++;
 string[i]=st.nextToken();
 ala[alac][0]=alac+""; //ala table formation
 index=string[i].indexOf("=");
@@ -64,10 +67,12 @@ substring=s.substring(index);
 for(i=0;i<alac;i++)
 if(ala[i][1].equals(substring))
 s=s.replaceAll(substring,"#"+ala[i][0]);
+temp++;
 }
 mdt[mdtc-1][0]=s;
 }
 mdt[mdtc-1][0]=s;
+temp++;
 }
 else
 {
@@ -106,6 +111,7 @@ str[i]=st1.nextToken();
 for(j=0;j<mntc;j++)
 {
 if(str[0].equals(mnt[j][1]))
+temp++;
 {
 mdtp=Integer.parseInt(mnt[j][2]);
 st1=new StringTokenizer(str[1],",");
@@ -144,7 +150,11 @@ for(i=0;i<n;i++)
 {
 for(j=0;j<m;j++)
 System.out.print(a[i][j]+" ");
-System.out.println();
+finalle();
+System.out.println(temp);
 }
 }
+public static void finalle(int temp)
+{
+System.out.println("Total loops "+temp);
 }
