@@ -1,0 +1,113 @@
+package spcc;
+import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+public class lexical {
+public static void main(String args[])throws IOException{
+
+	File file =new File("C:\\Users\\Govind Kalena\\Desktop\\spcc.txt");
+		  BufferedReader br = new BufferedReader(new FileReader(file));
+	 
+	 
+	 StringBuilder  stringBuilder = new StringBuilder();
+	 String line = null;
+
+	 while((line=br.readLine())!=null)
+	 		{
+	 		stringBuilder.append(line);
+	 		
+	   }
+	 String temp=stringBuilder.toString();
+	 String temp1 = temp.trim().replaceAll(" +", "");;
+
+System.out.println(temp1);
+
+	  List<String> operatorList = new ArrayList<String>();
+	  List<String> FunctionList = new ArrayList<String>();
+	  List<String> Keywords = new ArrayList<String>();
+	  List<String> Specialsym = new ArrayList<String>();
+	  List<String> Constants = new ArrayList<String>();
+	
+	  StringTokenizer st = new StringTokenizer(temp1, "+-/*=%", true);
+	  
+	  while(st.hasMoreTokens()) {
+	     String token = st.nextToken();
+
+	     if ("+-/*=%".contains(token)) {
+	        operatorList.add(token);
+	     } 
+	     
+	     else {
+	    	
+	     }
+	  }
+	    Set<String> o = new LinkedHashSet<String>(operatorList);  
+
+	  String[] func={"printf","scanf","main()"};
+	  for(int i=0; i<func.length;i++)
+		{
+			if(temp1.toLowerCase().contains(func[i]))
+				
+			{
+				FunctionList.add(func[i]);
+			}
+				
+		}
+	    Set<String> f = new LinkedHashSet<String>(FunctionList);  
+
+	  
+	  String[] keywords={"include","int","float","double","return","boolean","char","void","switch","for","if","else"};
+	  for(int i=0; i<keywords.length;i++)
+		{
+			if(temp1.toLowerCase().contains(keywords[i]))
+				
+			{
+				Keywords.add(keywords[i]);
+			}
+				
+		}
+	  Set<String> k = new LinkedHashSet<String>(Keywords);  
+
+	  
+StringTokenizer st2 = new StringTokenizer(temp1, "#@!~{}';.,", true);
+	  
+	  while(st2.hasMoreTokens()) {
+	     String token = st2.nextToken();
+
+	     if("#@!~{}';.,".contains(token))
+	     {
+	    	 Specialsym.add(token);
+	     }
+	     
+	     else {
+	    	
+	     }
+	  }
+	  Set<String> s = new LinkedHashSet<String>(Specialsym);
+	 
+	  
+	   String str2 = temp1.replaceAll("[^-?0-9]+", " "); 
+	    Constants.add(str2);
+	    Set<String> c = new LinkedHashSet<String>(Constants);  
+        
+
+	    System.out.println("Operators:" + o);
+	  System.out.println("Functions:" + f);
+	  System.out.println("Keywords:" + k);
+	  System.out.println("Special Symbols:" + s);
+	 System.out.println("Constants:" + c);
+	
+	  
+}
+
+
+} 
+	  
