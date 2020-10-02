@@ -1,0 +1,152 @@
+package spcc;
+
+import java.io.*;
+import java.util.*;
+
+public class left
+{
+	static char NTerm[],Term[];   //Array for non terminals and terinals
+	static int NTLen,TLen;        //Length of non terminals and terminals
+	static String grammar[][];
+	
+	public static void main(String args[]) throws IOException
+	{
+		int i,j,n;
+		String nt,t;
+
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		
+		String[] S = new String[2];   //S production inputs
+		S[0]="Aa";
+		S[1]="b";		
+		System.out.println("S->Aa|b"+"\n"); 
+		
+		System.out.println("A->Ac|Sd|e"+"\n"); 
+		
+
+		String[] A = new String[3];   //A production inputs
+		A[0]="Ac";
+		A[1]="Sd";
+		A[2]="e";
+ 
+		   
+		for(i=0;i<3;i++)
+		{
+			char[] nee = A[i].toCharArray();
+			char neer = nee[0];
+			switch (neer)
+			{
+				case 'A':
+				
+						System.out.println("There is Left recursion present\n");
+						break;
+   				case 'S':
+						
+						replacement(A,i,S);
+						break;				
+			}			
+		}
+
+		System.out.print("S->"); 
+		for(String mm: S)
+		{
+			System.out.print(mm+"|");
+		}
+		System.out.println("");		
+}
+public static void recursion(ArrayList<String> Adnews,ArrayList<String> Adnew)	
+{
+	int i=1,j=1;
+	String x;
+	String end = Adnew.get(Adnew.size()-1);    //getting terminal
+	
+ 
+    for(String ss:Adnews)
+	{
+		String z=end + "A"+j;
+		Adnew.add(z);
+	     j++; 
+    }
+    System.out.println();
+    System.out.print("Anew->");
+
+	for(String y:Adnew)
+	{
+	   	System.out.print(y+"|");
+	}
+	System.out.println();
+	
+
+	for(String ss:Adnews)
+	{
+		ArrayList<String> A =new ArrayList<String>();
+
+		String got= ss.substring(1);
+
+		x=got+ "A" +i;
+		A.add(x);
+		A.add("~");
+        
+		System.out.print("A"+i+"->");
+		for(String y:A)
+	    {
+	    	System.out.print(y+"|");
+	    }
+	    System.out.println("\n");
+	    i++;
+	}
+}
+
+
+public static void  replacement(String[] A,int po,String[] S)
+
+{	
+		
+	String su   =  A[po];
+	String subsu = su.substring(1);
+	int x[]=new int[10];
+	int k=0,j=0;
+
+	
+	ArrayList<String> Anew =new ArrayList<String>();
+	Anew.add("Ac");
+		
+	for(int i =0 ;i<2;i++)
+	{
+		String addn = S[i];
+		addn=addn+subsu;
+		Anew.add(addn);
+	}
+			
+	Anew.add("e");
+	System.out.println("After Expansion:");
+	System.out.print("A-> ");
+
+
+	for(String mm: Anew)
+	{
+			System.out.print(mm+"|");
+	}
+	System.out.println();
+	
+	
+	ArrayList<String> Anews =new ArrayList<String>();
+
+	for(String mm: Anew)
+	{
+		if(mm.charAt(0)=='A')
+		{
+			Anews.add(mm);
+		}
+	}
+	
+	for(String mm: Anews)
+	{
+		Anew.remove(mm);
+	}
+				
+	recursion(Anews,Anew);
+	}
+		
+}
+		
